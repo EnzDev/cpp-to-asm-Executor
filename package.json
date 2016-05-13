@@ -1,0 +1,25 @@
+{
+  "name": "bashlauncher",
+  "description": "let's the bang be online",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "forever start -c coffee app.coffee",
+    "stop": "forever stop -c coffee app.coffee"
+  },
+  "dependencies": {
+    "body-parser": "*",
+    "cluster": "*",
+    "coffee-script": "*",
+    "cookie-parser": "*",
+    "ejs": "*",
+    "express": "*",
+    "express-session": "*",
+    "forever": "*",
+    "method-override": "*",
+    "serve-favicon": "*",
+    "socket.io": "^1.4.5",
+    "stylus": "*",
+    "sys": "*"
+  }
+}
