@@ -46,3 +46,6 @@ pre.sh_asm {
   padding-bottom: 0px;
   margin-bottom: 0px;
 }
+#output {
+  margin-top: 8px;
+}

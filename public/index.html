@@ -31,24 +31,91 @@
     <!-- Main hero unit for a primary marketing message or call to action -->
     <div class="hero-unit" id="main">
         <h1>C/C++ to Assembly v2</h1>
-        <button id="launch">launch</button>
         <p>
             Just paste your C or C++ code and see how each line is translated into assembly by gcc (GNU Compiler Collection).
         </p>
         <p>
-            The source code is available on <a href="https://github.com/ynh/cpp-to-assembly">GitHub</a>
+            The source code is available on <a href="https://github.com/EnzDev/node-console.git">GitHub</a>
+            It is a fork of on original project leaded by <a href="https://github.com/ynh/cpp-to-assembly">YNH</a>
         </p>
-        <pre id="output"></pre>
+
+        <pre id="error" style="display:none" class="alert alert-error">
+      </pre>
+
+        <!--Code input frame-->
+      <form id="compilation-form" method="post">
+
+          <h4 style="float:left">Paste your own code or</h4>  <div class="btn-group"  style="float:left">
+              <button class="btn dropdown-toggle" data-toggle="dropdown" id="loadcode" autocomplete="off">Load sample code <span class="caret"></span></button>
+              <ul class="dropdown-menu" id="fileselect">
+                <li><a href="#" data-programm="helloworld" data-lang="c">Hello World C programm</a></li>
+                <li><a href="#" data-programm="bubble" data-lang="c">C Bubble sort</a></li>
+                <li><a href="#" data-programm="loop" data-lang="c">Simple loop</a></li>
+              </ul>
+            </div>
+          <textarea name="ccode" id="ccode" style="height: 500px; width: 100%; font-family: monospace;"></textarea>
+          Current compilation command: <code id="compilation_string"></code>
+          <label class="radio">
+          <input type="radio" name="language" id="lang_c" value="c" checked>
+          GNU GCC C </label>
+          <label class="radio">
+          <input type="radio" name="language" id="lang_cpp" value="cpp">GNU GCC C++ </label>
+          <label class="checkbox">
+          <input type="checkbox" value="1" name="optimize"/> Optimize (-O2) works only with simple code</label>
+          <label class="checkbox"><input type="checkbox" value="1" name="arm"/> Use ARM</label>
+          <label class="checkbox"><input type="checkbox" value="1" name="intel_asm"/> Use Intel ASM</label>
+          <label>
+              Compilation standard
+              <select name="standard">
+                  <option value="c99">c99</option>
+                  <option value="c++11">c++11</option>
+                  <option value="c++14">c++14</option>
+              </select>
+          </label>
+      </form>  <!--Input frame end-->
+
+
+        <!--Compile button-->
+      <button id="compile" class="btn btn-primary btn-large" data-loading-text="Code is compiling..." autocomplete="off">Translate Code to Assembly</button>
+    </hr></hr>
+
+
+        <!--Executeur-->
+        <pre id="output"></pre><!--Output-->
+
+        <!--Input-->
         <form id="compilation-form" onsubmit="$('#send').click;">
             <input name="stdin" id="stdin" style="height: 2em; width: calc( 100% - 16px ); font-family: monospace;"></input>
         </form>
+        <!--Input of exec end-->
+        <label> Make sure to send the comand by clicking the button. Pressing the enter key will refresh the page instead</label>
+        <!--Send button-->
         <button id="send" class="btn btn-primary btn-large" data-loading-text="Code is compiling..." autocomplete="off">Send the command</button>
+
+    <div>
+    <div id="code" class="row">
     </div>
     <hr>
+
+    <footer>
+    <p>
+        &copy; Original code from YNH, adapted by Students at Nantes Technical Institute of Computer Science - Powered by Node.js and Express Framework
+    </p>
+    </footer>
 </div>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="javascripts/vendor/jquery.js"><\/script>')</script>
 <script src="/javascripts/vendor/bootstrap.min.js"></script>
 <script type="text/javascript" src="/javascripts/app.js"></script>
+<script type="text/javascript" src="/javascripts/vendor/raphael-min.js"></script>
+<script type="text/javascript" src="/javascripts/sh_main.min.js"></script>
+<script type="text/javascript" src="/javascripts/sh_cpp.min.js"></script>
+<script type="text/javascript" src="/javascripts/sh_asm.js"></script>
+<script>
+            var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
 </body>
 </html>
