@@ -21,7 +21,7 @@ else #if i'm a child
 
   app = express() # set up express
   sessionStore = new middle.session.MemoryStore()
-  
+
 # app.configure is deprecated
   app.set('port', process.env.PORT || 8080) # setup the listening port
   app.set('views', __dirname + '/views') # setup the views (there is only the 404 page)
@@ -48,10 +48,11 @@ else #if i'm a child
 
   app.post('/launch', session, routes.launchpost) # set the route for launch
   app.post('/request', session, routes.reqpost) # same w request
- 
-  
+  app.post '/compile', routes.indexpost #compile into asm
+
+
   app.use routes.error404
-  
+
   http.createServer(app).listen app.get('port'), ()->
     console.log("Express server listening on port " + app.get('port'))
     process = {}
