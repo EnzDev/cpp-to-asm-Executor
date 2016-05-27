@@ -138,6 +138,28 @@
       });
       return false;
     });
+    $("#fileselect").dropdown();
+    $("#fileselect li a").click(function(event) {
+      var lang, programm;
+      event.preventDefault();
+      $("#loadcode").button('loading');
+      programm = $(this).data("programm");
+      lang = $(this).data("lang");
+      $("#lang_" + lang).attr("checked", "checked");
+      return $.get("code/" + programm + ".html", function(data) {
+        $("#ccode").val(data);
+        return $("#loadcode").button('reset');
+      });
+    });
+    $("#compile").click(function(e) {
+      $(this).button('loading');
+      $.post("/compile", $("form").serialize(), function(response) {
+        return render(response);
+      });
+      return false;
+    });
+    updateCompileString();
+    $("#compilation-form").change(updateCompileString);
   });
 
   CodeBlock = (function() {
@@ -272,30 +294,5 @@
     compilestring += "myCode." + $("input[name=language]:checked").val();
     return $('#compilation_string').html(compilestring);
   };
-
-  $(function() {
-    $("#fileselect").dropdown();
-    $("#fileselect li a").click(function(event) {
-      var lang, programm;
-      event.preventDefault();
-      $("#loadcode").button('loading');
-      programm = $(this).data("programm");
-      lang = $(this).data("lang");
-      $("#lang_" + lang).attr("checked", "checked");
-      return $.get("code/" + programm + ".html", function(data) {
-        $("#ccode").val(data);
-        return $("#loadcode").button('reset');
-      });
-    });
-    $("#compile").click(function(e) {
-      $(this).button('loading');
-      $.post("/compile", $("form").serialize(), function(response) {
-        return render(response);
-      });
-      return false;
-    });
-    updateCompileString();
-    $("#compilation-form").change(updateCompileString);
-  });
 
 }).call(this);
