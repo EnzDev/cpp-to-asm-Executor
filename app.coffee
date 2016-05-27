@@ -23,7 +23,7 @@ else #if i'm a child
   sessionStore = new middle.session.MemoryStore()
 
 # app.configure is deprecated
-  app.set('port', process.env.PORT || 8080) # setup the listening port
+  app.set('port', process.env.PORT || 8008) # setup the listening port
   app.set('views', __dirname + '/views') # setup the views (there is only the 404 page)
   app.set('view engine', 'ejs') # use ejs for the views (useless cuz here ejs is simple html)
   app.use(middle.favicon(path.join(__dirname, "public/favicon.ico"))) # let express handle the favicon for us
@@ -46,9 +46,9 @@ else #if i'm a child
   app.use(require('stylus').middleware(__dirname + '/public'))
   app.use(express.static(path.join(__dirname, 'public')))
 
-  app.post('/launch', session, routes.launchpost) # set the route for launch
-  app.post('/request', session, routes.reqpost) # same w request
-  app.post '/compile', routes.indexpost #compile into asm
+  app.post '/launch',  session, routes.launchpost   # set the route for launch
+  app.post '/request', session, routes.reqpost      # same w request
+  app.post '/compile', session, routes.indexpost    #compile into asm
 
 
   app.use routes.error404
