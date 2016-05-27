@@ -124,6 +124,29 @@ $ ()->
       render(response)
       $("#stdin").val("")
     false
+
+    #bind load sample code
+  $("#fileselect").dropdown()
+  $("#fileselect li a").click (event)->
+      event.preventDefault()
+      $("#loadcode").button('loading')
+      programm=$(this).data("programm")
+      lang=$(this).data("lang")
+      $("#lang_#{lang}").attr("checked", "checked")
+      $.get "code/#{programm}.html", (data)->
+        $("#ccode").val(data)
+        $("#loadcode").button('reset')
+
+  #bind submit button
+  $("#compile").click (e)->
+    #Disable submit button
+    $(this).button('loading')
+    #start ajax request
+    $.post "/compile", $("form").serialize(), ( response )->
+      render(response)
+    false
+  updateCompileString();
+  $("#compilation-form").change(updateCompileString)
   return
 
   #_______________________Asm block____________________
@@ -209,32 +232,3 @@ updateCompileString = () ->
   compilestring += "myCode." + $("input[name=language]:checked").val()
 
   $('#compilation_string').html(compilestring)
-
-
-
-
-#On page load
-$ ()->
-  #bind load sample code
-  $("#fileselect").dropdown()
-  $("#fileselect li a").click (event)->
-      event.preventDefault()
-      $("#loadcode").button('loading')
-      programm=$(this).data("programm")
-      lang=$(this).data("lang")
-      $("#lang_#{lang}").attr("checked", "checked")
-      $.get "code/#{programm}.html", (data)->
-        $("#ccode").val(data)
-        $("#loadcode").button('reset')
-
-  #bind submit button
-  $("#compile").click (e)->
-    #Disable submit button
-    $(this).button('loading')
-    #start ajax request
-    $.post "/compile", $("form").serialize(), ( response )->
-      render(response)
-    false
-  updateCompileString();
-  $("#compilation-form").change(updateCompileString)
-  return
