@@ -1,9 +1,4 @@
 render=(data)->
-  if data?
-    if data.join("\n").match(/^>>.*/)?
-      $("#output").append(data.join("\n").replace(/^\"|\"$/g,""))
-    else
-      $("#output").append(data.join("\n").replace(/\\n/g,"\n").replace(/^\"|\"$/g,""))
   #if error message recived
   if data.error?
     #clean code block
@@ -105,6 +100,12 @@ render=(data)->
     $('html, body').animate {
           scrollTop: $("#code").offset().top-10
     }, 380
+	 
+  if data?
+    if data.join("\n").match(/^>>.*/)?
+      $("#output").append(data.join("\n").replace(/^\"|\"$/g,""))
+    else
+      $("#output").append(data.join("\n").replace(/\\n/g,"\n").replace(/^\"|\"$/g,""))
 
 #On page load
 $ ()->

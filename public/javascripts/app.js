@@ -4,18 +4,11 @@
 
   render = function(data) {
     var asm_code, c_codecode, codeb, pcodeb;
-    if (data != null) {
-      if (data.join("\n").match(/^>>.*/) != null) {
-        $("#output").append(data.join("\n").replace(/^\"|\"$/g, ""));
-      } else {
-        $("#output").append(data.join("\n").replace(/\\n/g, "\n").replace(/^\"|\"$/g, ""));
-      }
-    }
     if (data.error != null) {
       $("#code").html("");
       $("#compile").button('reset');
       $("#error").text(data.error).show();
-      return $('html, body').animate({
+      $('html, body').animate({
         scrollTop: $("#error").offset().top - 100
       }, 380);
     } else if (data.code != null) {
@@ -114,9 +107,16 @@
       });
       sh_highlightDocument();
       $("#compile").button('reset');
-      return $('html, body').animate({
+      $('html, body').animate({
         scrollTop: $("#code").offset().top - 10
       }, 380);
+    }
+    if (data != null) {
+      if (data.join("\n").match(/^>>.*/) != null) {
+        return $("#output").append(data.join("\n").replace(/^\"|\"$/g, ""));
+      } else {
+        return $("#output").append(data.join("\n").replace(/\\n/g, "\n").replace(/^\"|\"$/g, ""));
+      }
     }
   };
 
