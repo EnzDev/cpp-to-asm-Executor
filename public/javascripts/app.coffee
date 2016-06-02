@@ -100,12 +100,12 @@ render=(data)->
     $('html, body').animate {
           scrollTop: $("#code").offset().top-10
     }, 380
-	 
-  if data?
-    if data.join("\n").match(/^>>.*/)?
-      $("#output").append(data.join("\n").replace(/^\"|\"$/g,""))
+
+  if data.cons?
+    if data.cons.join("\n").match(/^>>.*/)?
+      $("#output").append(data.cons.join("\n").replace(/^\"|\"$/g,""))
     else
-      $("#output").append(data.join("\n").replace(/\\n/g,"\n").replace(/^\"|\"$/g,""))
+      $("#output").append(data.cons.join("\n").replace(/\\n/g,"\n").replace(/^\"|\"$/g,""))
 
 #On page load
 $ ()->

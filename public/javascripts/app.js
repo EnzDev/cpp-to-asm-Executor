@@ -22,7 +22,7 @@
       });
       pcodeb = null;
       codeb = null;
-      c_codecode.css(
+      c_codecode.css({
         "overflow": "auto",
         height: $(window).height() - 100
       });
@@ -111,11 +111,11 @@
         scrollTop: $("#code").offset().top - 10
       }, 380);
     }
-    if (data != null) {
-      if (data.join("\n").match(/^>>.*/) != null) {
-        return $("#output").append(data.join("\n").replace(/^\"|\"$/g, ""));
+    if (data.cons != null) {
+      if (data.cons.join("\n").match(/^>>.*/) != null) {
+        return $("#output").append(data.cons.join("\n").replace(/^\"|\"$/g, ""));
       } else {
-        return $("#output").append(data.join("\n").replace(/\\n/g, "\n").replace(/^\"|\"$/g, ""));
+        return $("#output").append(data.cons.join("\n").replace(/\\n/g, "\n").replace(/^\"|\"$/g, ""));
       }
     }
   };
@@ -296,5 +296,3 @@
   };
 
 }).call(this);
-
-//# sourceMappingURL=app.js.map
