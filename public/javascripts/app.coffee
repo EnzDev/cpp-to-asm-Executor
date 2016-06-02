@@ -100,7 +100,7 @@ render=(data)->
     $('html, body').animate {
           scrollTop: $("#code").offset().top-10
     }, 380
-	 
+
   if data?
     if data.join("\n").match(/^>>.*/)?
       $("#output").append(data.join("\n").replace(/^\"|\"$/g,""))
@@ -185,6 +185,7 @@ class LineCanvas
     return
 pcodeb=null;
 codeb=null;
+
 link=(asm_code,c_codecode,current,permanent)->
   prefix=if permanent then "p" else ""
   color= if permanent then "#B8FF79" else "#ffee79"
