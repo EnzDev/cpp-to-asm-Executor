@@ -93,22 +93,25 @@ document.onkeypress = stopRKey;
     </hr></hr>
 
 
-        <!--Executeur-->
-        <pre id="output"></pre><!--Output-->
-
-        <!--Input-->
-        <form id="compilation-form" onsubmit="$('#send').click;">
-            <input name="stdin" id="stdin" style="height: 2em; width: calc( 100% - 16px ); font-family: monospace;"></input>
-        </form>
-        <!--Input of exec end-->
-
-        <!--Send button-->
-        <button id="send" class="btn btn-primary btn-large" data-loading-text="Code is compiling..." autocomplete="off">Send the command</button>
 
     <div>
     <div id="code" class="row">
     </div>
     <hr>
+    
+    <!--Executeur-->
+    <pre id="output"></pre><!--Output-->
+
+    <!--Input-->
+    <form id="compilation-form" onsubmit="$('#send').click;">
+        <input name="stdin" id="stdin" style="height: 2em; width: calc( 100% - 16px ); font-family: monospace;"></input>
+    </form>
+    <!--Input of exec end-->
+
+    <!--Send button-->
+    <button id="send" class="btn btn-primary btn-large" data-loading-text="Code is compiling..." autocomplete="off">Send the command</button>
+
+
 
     <footer>
     <p>

@@ -22,7 +22,7 @@
       });
       pcodeb = null;
       codeb = null;
-      c_codecode.css(
+      c_codecode.css({
         "overflow": "auto",
         height: $(window).height() - 100
       });
@@ -296,5 +296,3 @@
   };
 
 }).call(this);
-
-//# sourceMappingURL=app.js.map
