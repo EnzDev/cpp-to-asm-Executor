@@ -130,8 +130,12 @@ exports.indexpost = (req, res)->
 						blocks=decodeCode(stdout,req.body.ccode)
 
 						# verify if the code is executable
+						exec = false
 						for key, value of req.body.code
-						  console.log value
+						  exec = true if (value.search(/(int|void) main\(.*\)/) == 0)
+
+						if exec
+						  ## DO THE COMPILATION AND ASSIGNEMENT
 
 						# send result as json to the client
 						res.json(blocks)
