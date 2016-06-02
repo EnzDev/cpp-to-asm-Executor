@@ -6,8 +6,9 @@ exports.error404 = (req,res)->
 	res.render("404")
 
 exports.launchpost = (req,res)-> #here, we will start bash
-	process[req.session.id] = cp.spawn("/bin/bash")
-	res.send()
+	if req.session.name?
+		process[req.session.id] = cp.spawn(req.session.name)
+		res.send()
 
 exports.reqpost = (req,res)->
 	if req.body.stdin?
@@ -116,7 +117,7 @@ exports.indexpost = (req, res)->
 			compilecmd = "c-preload/compiler-wrapper #{compiler} #{asm} " +
 										"-std=#{standard} -c #{optimize} -Wa,-ald " +
 										"-g /tmp/test#{fileid}.#{lang}"
-			cp.exec compilecmd,														
+			cp.exec compilecmd,
 				{timeout:10000,maxBuffer: 1024 * 1024*10},
 				(error, stdout, stderr)->
 					if error?
@@ -127,6 +128,10 @@ exports.indexpost = (req, res)->
 					else
 						# parse standard output
 						blocks=decodeCode(stdout,req.body.ccode)
+
+						# verify if the code is executable
+						for key, value of req.body.code
+						  console.log value
 
 						# send result as json to the client
 						res.json(blocks)
