@@ -101,11 +101,17 @@ render=(data)->
           scrollTop: $("#code").offset().top-10
     }, 380
 
+<<<<<<< HEAD
+  if data.cons?
+    if data.cons.join("\n").match(/^>>.*/)?
+      $("#output").append(data.cons.join("\n").replace(/^\"|\"$/g,""))
+=======
   if data?
     if data.join("\n").match(/^>>.*/)?
       $("#output").append(data.join("\n").replace(/^\"|\"$/g,""))
+>>>>>>> 2e41b3a1cb1ceca89b4ed23d8e9689bdc060c946
     else
-      $("#output").append(data.join("\n").replace(/\\n/g,"\n").replace(/^\"|\"$/g,""))
+      $("#output").append(data.cons.join("\n").replace(/\\n/g,"\n").replace(/^\"|\"$/g,""))
 
 #On page load
 $ ()->
