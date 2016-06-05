@@ -1,16 +1,16 @@
 # C/C++ to assembly with execution
 
-> **What's this ?**
-> This repository is originally a fork of [YNH/CPP-to-assembly](https://github.com/ynh/cpp-to-assembly).
-> This is a student project at the Institute of Technology of Nantes. First of all, our aim was just to understand how it works.
-> We also do some minor modifications like the ability to link asm to code and not only code to asm.
+> **What is it ?**
+> This repository has been forked from the original project [YNH/CPP-to-assembly](https://github.com/ynh/cpp-to-assembly).
+> This project was led by students from the Institute of Technology of Nantes. Our first aim was just to understand how the original application worked.
+> Then, we addend a few minor modifications. Like, for exemple the ability to link asm to code and not only code to asm.
 >
-> That an extension of this project. We want to do an interface where the user can execute his code (if it has a main function)
-> and interact with it if he uses some `cin` &ndash; `scanf`.
+> This present repository is an extension to the project. We plan to add an interface where the user can execute his code (if it has a main function)
+> and interact with by using some `cin` &ndash; `scanf`.
 
-## Turn it on
+## Lauch the application
 First of all, you have to clone our repo, `https://github.com/EnzDev/cpp-to-asm-Executor.git`
-And after just install the application and start the server by doing the followings commands :
+Then,install the application and start the server by doing the followings commands :
 ```
 $ cd cpp-to-asm-Executor
 $ npm install -d
