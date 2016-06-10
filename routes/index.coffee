@@ -1,29 +1,38 @@
 cp = require("child_process")
-
+datas = {}
 
 exports.error404 = (req,res)->
 	res.status(404)
 	res.render("404")
 
 exports.launchpost = (req,res)-> #here, we will start bash
+	datas[req.session.id] = []
 	if req.session.name?
-		process[req.session.id] = cp.spawn(req.session.name)
-		res.send()
+		process[req.session.id] = cp.spawn "/tmp/#{req.session.name}"
+		process[req.session.id].stdout.on 'data', (dt)->
+			datas[req.session.id].push(dt.toString())
+		res.json({})
+
 
 exports.reqpost = (req,res)->
-	if req.body.stdin?
-		toWrite = req.body.stdin
-	buff = process[req.session.id].stdout.read()
-	out = []
-	out.push(JSON.stringify(buff.toString())) if buff?
-	if toWrite? and toWrite!=""
-		try
-			process[req.session.id].stdin.write("#{toWrite}\n")
-			out.push(">> #{toWrite}\n")
-			console.log("write #{toWrite}\n")
-		catch nowrite
-			out.push(nowrite)
-	res.send(out)
+	console.log(JSON.stringify(datas))
+	cp.exec "pidof #{req.session.name}", (e,to,te)->
+		out = if datas[req.session.id] then datas[req.session.id].slice() else []
+		datas[req.session.id] = []
+		if !(process[req.session.id]._handle?)
+			res.json( {killed : true, cons:out} )
+		else
+			if req.body.stdin?
+				toWrite = req.body.stdin
+			
+			if toWrite? and toWrite!=""
+				try
+					process[req.session.id].stdin.write("#{toWrite}\n")
+					out.push(">> #{toWrite}\n")
+					console.log("write #{toWrite}\n")
+				catch nowrite
+					out.push(nowrite)
+			res.json({cons:out})
 
 	#____________here after: asm viewing_________________
 
@@ -89,6 +98,7 @@ exports.error404 = (req, res)->
   res.render('404', { title: 'C/C++ to Assembly' })
 
 exports.indexpost = (req, res)->
+	blocks = {}
 	optimize=if req.body.optimize? then "-O2" else ""
 	lang=if req.body.language=="c" then "c" else "cpp"
 
@@ -120,26 +130,40 @@ exports.indexpost = (req, res)->
 			cp.exec compilecmd,
 				{timeout:10000,maxBuffer: 1024 * 1024*10},
 				(error, stdout, stderr)->
+					 
 					if error?
 						# send error message to the client
 						res.json({error:error.toString()})
-						fs.unlink("/tmp/test#{fileid}.#{lang}")
+						# fs.unlink("/tmp/test#{fileid}.#{lang}")
 						fs.unlink("test#{fileid}.o")
 					else
 						# parse standard output
 						blocks=decodeCode(stdout,req.body.ccode)
 
 						# verify if the code is executable
-						exec = false
-						for key, value of req.body.code
-						  exec = true if (value.search(/(int|void) main\(.*\)/) == 0)
+						execu = false
+						for key, value of blocks.code
+						  execu = true if (value.search(/(int|void) *main\(.*\)/) == 0)
+						blocks.work = false
+						if execu
+							## DO THE COMPILATION AND ASSIGNEMENT
+						#	fs.unlink("/tmp/test#{fileid}.#{lang}")
+							comp = "gcc -std=#{standard}" +
+							  " #{optimize} -o /tmp/prg#{fileid} /tmp/test#{fileid}.#{lang}"
+							cp.exec comp,
+								{timeout:100000,maxBuffer: 1024 * 1024*10},
+								(error, stdout, stderr)->
+									if error?
+										console.log("#{error.toString()}")
+										delete req.session.name
+									else
+										req.session.name = "prg#{fileid}"
+										blocks.work = true
+										console.log("pass : #{fileid}")
 
-						if exec
-						  ## DO THE COMPILATION AND ASSIGNEMENT
-
-						# send result as json to the client
-						res.json(blocks)
+									res.json(blocks)
+						else
+							res.json(blocks)
 
 						# clean up
-						fs.unlink("/tmp/test#{fileid}.#{lang}")
 						fs.unlink("test#{fileid}.o")

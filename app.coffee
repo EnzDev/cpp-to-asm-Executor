@@ -56,3 +56,4 @@ else #if i'm a child
   http.createServer(app).listen app.get('port'), ()->
     console.log("Express server listening on port " + app.get('port'))
     process = {}
+    datas = {}

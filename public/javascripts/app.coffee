@@ -107,18 +107,10 @@ render=(data)->
       $("#output").append(data.cons.join("\n").replace(/^\"|\"$/g,""))
     else
       $("#output").append(data.cons.join("\n").replace(/\\n/g,"\n").replace(/^\"|\"$/g,""))
-
+r = undefined
 #On page load
 $ ()->
-  r = ''
-  $.post "/launch", "", ()->
-    r = setInterval ()->
-      console.log("sent")
-      $.post "/request", "", (res) ->
-        render(res)
-        return
-    , 1000
-    return
+  sLaunchable = false
   #bind submit button
   $("#send").click (e)->
     #start ajax request
@@ -139,15 +131,41 @@ $ ()->
         $("#ccode").val(data)
         $("#loadcode").button('reset')
 
+  #bind start button
+  $("#launch").click (e)->
+    #start ajax request
+    $.post "/launch", "", (res) ->
+      render(res)
+      return
+    $("#launch").fadeOut(100, ()-> $("#send").fadeIn(200))
+    r = setInterval ()->
+      console.log("launch")
+      $.post "/request", "", (res) ->
+        if res.killed?
+          clearInterval(r)
+          $("#send").fadeOut(100, ()->$("#launch").fadeIn(200))
+        render(res)
+        return
+    , 10000
+ 
+
   #bind submit button
   $("#compile").click (e)->
+
     #Disable submit button
     $(this).button('loading')
     #start ajax request
     $.post "/compile", $("form").serialize(), ( response )->
       render(response)
+      $("#send").fadeOut(100, () ->
+         $("#launch").fadeIn(200))
+      if response.work
+         $("#launch").prop('disabled', false)
+      else
+         $("#launch").prop('disabled', true)
+         clearInterval(r)
     false
-  updateCompileString();
+  updateCompileString()
   $("#compilation-form").change(updateCompileString)
   return
 

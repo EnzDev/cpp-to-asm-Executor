@@ -89,7 +89,7 @@ document.onkeypress = stopRKey;
 
 
         <!--Compile button-->
-      <button id="compile" class="btn btn-primary btn-large" data-loading-text="Code is compiling..." autocomplete="off">Translate Code to Assembly</button>
+      <button id="compile" class="btn btn-primary btn-large" data-loading-text="Code is compiling..." autocomplete="off" >Translate Code to Assembly</button>
     </hr></hr>
       </div>
 
@@ -109,7 +109,8 @@ document.onkeypress = stopRKey;
     <!--Input of exec end-->
 
     <!--Send button-->
-    <button id="send" class="btn btn-primary btn-large" data-loading-text="Code is compiling..." autocomplete="off">Send the command</button>
+    <button id="launch" class="btn btn-primary btn-large" data-loading-text="Code is compiling..." autocomplete="off" disabled >Launch the program</button>
+    <button id="send"   class="btn btn-primary btn-large" data-loading-text="Code is compiling..." autocomplete="off" style="display:none;">Send the command</button>
   </div>
 
 
@@ -128,10 +129,10 @@ document.onkeypress = stopRKey;
 <script type="text/javascript" src="/javascripts/sh_cpp.min.js"></script>
 <script type="text/javascript" src="/javascripts/sh_asm.js"></script>
 <script>
-            var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
-            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-            s.parentNode.insertBefore(g,s)}(document,'script'));
-        </script>
+   var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+   (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+      g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+      s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
 </body>
 </html>
