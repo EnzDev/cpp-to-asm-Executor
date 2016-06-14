@@ -146,7 +146,7 @@ $ ()->
           $("#send").fadeOut(100, ()->$("#launch").fadeIn(200))
         render(res)
         return
-    , 10000
+    , 1000
  
 
   #bind submit button
