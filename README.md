@@ -8,7 +8,10 @@
 > This present repository is an extension to the project. We plan to add an interface where the user can execute his code (if it has a main function)
 > and interact with by using some `cin` &ndash; `scanf`.
 
+
 ## Lauch the application
+> It is mandatory to have an up to date version of gcc  
+
 First of all, you have to clone our repo, `https://github.com/EnzDev/cpp-to-asm-Executor.git`
 Then,install the application and start the server by doing the followings commands :
 ```
