@@ -172,8 +172,8 @@ $ ()->
   #_______________________Asm block____________________
 
 class CodeBlock
-constructor:(@el,@c_codecode,@normaloff)->
-getPos:()->
+  constructor:(@el,@c_codecode,@normaloff)->
+  getPos:()->
     x: 0,
     y1: $(@el).offset().top-@normaloff,
     y2: $(@el).outerHeight()+$(@el).offset().top-@normaloff
