@@ -23,3 +23,6 @@ $ npm start
 ```
 
 After everything just visit [localhost:8008](localhost:8008)
+
+Git is GREAT !!
+===============
